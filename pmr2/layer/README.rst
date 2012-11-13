@@ -13,7 +13,7 @@ Let's try some test cases.
 
     >>> from Testing.testbrowser import Browser
     >>> browser = Browser()
-    >>> browser.open(self.portal.absolute_url() + '/@@test-page')
+    >>> browser.open(self.portal.absolute_url() + '/@@pmr2layer-testpage')
     >>> print browser.contents
     <html>
     <head><title>Test page</title></head>
@@ -29,6 +29,6 @@ what happens if we apply a vendor specific content-accept request.
 ::
 
     >>> browser.addHeader('Accept', 'application/vnd.example.com-v1')
-    >>> browser.open(self.portal.absolute_url() + '/@@test-page')
+    >>> browser.open(self.portal.absolute_url() + '/@@pmr2layer-testpage')
     >>> print browser.contents
     {title:'Test Page',content:This is some content.}

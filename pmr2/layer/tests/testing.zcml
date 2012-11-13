@@ -11,14 +11,14 @@
 
   <browser:page
       for="*"
-      name="test-page"
+      name="pmr2layer-testpage"
       template="standard.pt"
       permission="zope.Public"
       />
 
   <browser:page
       for="*"
-      name="test-page"
+      name="pmr2layer-testpage"
       permission="zope.Public"
       template="json.pt"
       layer=".utility.IExampleTestLayer"
