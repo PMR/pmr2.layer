@@ -37,3 +37,14 @@ class MarkLayerTestCase(unittest.TestCase):
         self.assertFalse(utility.IExampleTestLayer.providedBy(self.request))
         mark_layer(self.portal, self.event)
         self.assertTrue(utility.IExampleTestLayer.providedBy(self.request))
+
+    def test_0002_multi(self):
+        sm = getSiteManager()
+        sm.registerUtility(utility.MultiTestLayerApplier(), ILayerApplier,
+            name='multilayer')
+        self.request['HTTP_ACCEPT'] = 'application/vnd.example.com.tests'
+
+        mark_layer(self.portal, self.event)
+        self.assertTrue(utility.ITestLayer1.providedBy(self.request))
+        self.assertTrue(utility.ITestLayer2.providedBy(self.request))
+        self.assertTrue(utility.ITestLayer3.providedBy(self.request))

@@ -5,6 +5,14 @@ from zope.component import getAllUtilitiesRegisteredFor
 from pmr2.layer.interfaces import ILayerApplier
 
 
+def isinterface(o):
+    try:
+        return issubclass(o, Interface)
+    except:
+        # because some builtins (like None) will fail, and I don't care
+        return False
+
+
 def mark_layer(site, event):
     """
     A subscriber based on the one found in plone.browserlayer.layer.
@@ -20,16 +28,20 @@ def mark_layer(site, event):
 
     for lu in layer_utils:
         try:
-            layer = lu(request)
+            result = lu(request)
         except:
             # XXX should log this down with a warning.
             continue
 
-        if layer:
-            layers.append(layer)
+        if not result:
+            continue
+
+        if not isinstance(result, list):
+            result = [result]
+
+        layers.extend(layer for layer in result if isinterface(layer))
 
     # Filter out bad entries.
-    layers = [layer for layer in layers if issubclass(layer, Interface)]
     ifaces = layers + list(directlyProvidedBy(request))
 
     directlyProvides(request, *ifaces)
