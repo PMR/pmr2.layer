@@ -23,6 +23,8 @@ def mark_layer(site, event):
     event.request._pmr2layermarker_ = True
 
     request = event.request
+    # should probably split out the layer extraction from the application
+    # for easier testing
     layer_utils = getAllUtilitiesRegisteredFor(ILayerApplier)
     layers = []
 

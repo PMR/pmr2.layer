@@ -3,8 +3,13 @@ import zope.interface
 from pmr2.layer.interfaces import ILayerApplier
 
 
-class ConditionalLayerApplierBase(object):
+class LayerApplierBase(object):
     zope.interface.implements(ILayerApplier)
+    def __call__(self, request):
+        raise NotImplementedError
+
+
+class ConditionalLayerApplierBase(LayerApplierBase):
     layer = None
 
     def condition(self, request):
